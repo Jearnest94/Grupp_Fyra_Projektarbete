@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, url_for, redirect
 
 app = Flask(__name__)
 username = 'Jon'
-users = ['Karolina', 'Abdi', 'Rammi']
+users = ['Karolina', 'Abdi', 'Rammi','jöznaa']
 
 
 @app.get('/')
