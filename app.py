@@ -26,6 +26,9 @@ def user_post():
 def mango():
     return render_template("mango.html")
 
+@app.get('/test')
+def test():
+    return render_template("mango.html")
 
 if __name__ == '__main__':
     app.run()
