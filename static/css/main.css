@@ -1,0 +1,23 @@
+        body {
+            background-color: lemonchiffon;
+        }
+
+        .menu-item {
+            margin: 5px;
+            color: dodgerblue;
+        }
+
+        .list-thumbnail {
+            margin-top: 10px;
+            margin-left: 10px;
+            height: 160px;
+            width: 160px;
+        }
+
+        .button-submit {
+            margin-bottom: 10px;
+        }
+
+        .text-box {
+            margin-bottom: 10px;
+        }
