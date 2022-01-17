@@ -26,7 +26,7 @@ def user_post():
 def mango():
     return render_template("mango.html")
 
-@app.get('/test')
+@app.get('/test2')
 def test():
     return render_template("mango.html")
 
