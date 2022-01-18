@@ -7,21 +7,5 @@
 {% block content %}
     <h1 id="main-heading">Mango User page Test</h1>
     <p>Hello {{ name }}</p>
-    <ul>
-        {% for friend in friends %}
-            <li>{{ friend }}</li>
-        {% endfor %}
-    </ul>
 
-    <form action="/user" method="POST">
-        <input class=text-box type="text" name="user_name" placeholder="New User Name"/>
-        <br/>
-        <input class="button-submit" type="submit" value="Update">
-    </form>
-
-    <button onclick="changeText()">Change Main Text</button>
-{% endblock %}
-
-{% block scripts %}
-    <script src="{{ url_for('static', filename='js/source.js') }}"></script>
 {% endblock %}

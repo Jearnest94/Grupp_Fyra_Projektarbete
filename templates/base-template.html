@@ -2,19 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/>
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"/>
 </head>
 <body>
-    <a class="menu-item" href="/">Home</a>
-    <a class="menu-item" href="/user">User</a>
-    <a class="menu-item" href="/mango">Mango</a>
-    <hr />
-    {% block content %}
-    {% endblock %}
+<section class="hero is-primary">
+    <div class="hero-head">
+        <nav class="navbar">
+            <div class="container">
+                <div id="navbarMenuHeroA" class="navbar-menu">
+                    <div class="navbar-end">
+                        <a href="{{ url_for('bp_open.index') }}" class="navbar-item">Home</a>
+                        <a href="{{ url_for('bp_user.user_get') }}" class="navbar-item">Profile</a>
+                        <a href="{{ url_for('bp_open.signup_get') }}" class="navbar-item">Sign Up</a>
+                        <a href="{{ url_for('bp_open.login_get') }}" class="navbar-item">Login</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</section>
+{% block content %}
+{% endblock %}
 
-    {% block scripts %}
-    {% endblock %}
+<div class="card-footer-item">
+    <div class="hero-foot">
+        <p>KYH2021 - Grupp 4. Copyright all rights reserved ©</p>
+    </div>
+</div>
+
+
 </body>
 </html>

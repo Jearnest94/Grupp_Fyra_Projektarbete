@@ -1,31 +1,23 @@
 from flask import Flask, render_template, request, url_for, redirect
+from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
-username = 'Jon'
-users = ['Karolina', 'Abdi', 'Rammi']
-
-
-@app.get('/')
-def index():
-    return render_template("index.html")
+db = SQLAlchemy()
 
 
-@app.get('/user')
-def user_get():
-    return render_template("user.html", name=username, friends=users)
+def create_app():
+    app = Flask(__name__)
+    app.config['SECRET_KEY'] = '123secret'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 
+    db.init_app(app)
 
-@app.post('/user')
-def user_post():
-    user_add = request.form['user_name']
-    users.append(user_add)
-    return redirect(url_for('user_get'))
+    from blueprints.open import bp_open
+    app.register_blueprint(bp_open)
 
+    from blueprints.user import bp_user
+    app.register_blueprint(bp_user)
 
-@app.get('/mango')
-def mango():
-    return render_template("mango.html")
+    from blueprints.admin import bp_admin
+    app.register_blueprint(bp_admin)
 
-
-if __name__ == '__main__':
-    app.run()
+    return app
