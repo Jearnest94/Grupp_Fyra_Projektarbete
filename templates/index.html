@@ -4,8 +4,17 @@
     Mango Main
 {% endblock %}
 
-    {% block content %}
-    <h1>This is the Mango Main page</h1>
-    <p>This is a rotating Mango</p>
-    <img class="list-thumbnail" src="{{ url_for('static', filename='img/mango.gif') }}">
-    {% endblock %}
+
+
+{% block content %}
+    <div class="column is-4 is-offset-4">
+        <h1 class="title">Welcome to the Mango Project!</h1>
+        <p style="float: right">The mango goes 'round, 'round and 'round 'round and 'round 'round and 'round!</p>
+        <br/>
+        <img class="list-thumbnail" src="{{ url_for('static', filename='img/mango.gif') }}">
+        <img class="list-thumbnail" src="{{ url_for('static', filename='img/mango.gif') }}">
+        <img class="list-thumbnail" src="{{ url_for('static', filename='img/mango.gif') }}">
+        <p>What a blessing!</p>
+    </div>
+
+{% endblock %}

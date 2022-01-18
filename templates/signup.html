@@ -1,0 +1,38 @@
+{% extends "base-template.html" %}
+
+{% block title %}
+    Mango Sign Up
+{% endblock %}
+
+{% block content %}
+    <div class="column is-4 is-offset-4">
+        <h3 class="title">Mango - Sign Up</h3>
+        <div class="box">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="notification is-danger">
+                        {{ messages[0] }}. Go to <a href="{{ url_for('bp_open.login_get') }}">login page</a>
+                    </div>
+                {% endif %}
+            {% endwith %}
+            <form action="{{ url_for('bp_open.signup_post') }}" method="POST">
+                <div class="field">
+                    <div class="control">
+                        <input class="input is-large" type="text" name="name" placeholder="Enter your full name" autofocus=""/>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <input class="input is-large" type="email" name="email" placeholder="Your email address" autofocus="">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <input class="input is-large" type="password" name="password" placeholder="Enter password" autofocus="">
+                    </div>
+                </div>
+                <input type="submit" value="Sign up">
+            </form>
+        </div>
+    </div>
+{% endblock %}
