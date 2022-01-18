@@ -17,9 +17,15 @@
                 <div id="navbarMenuHeroA" class="navbar-menu">
                     <div class="navbar-end">
                         <a href="{{ url_for('bp_open.index') }}" class="navbar-item">Home</a>
+                        {% if current_user.is_authenticated %}
                         <a href="{{ url_for('bp_user.user_get') }}" class="navbar-item">User</a>
-                        <a href="{{ url_for('bp_open.signup_get') }}" class="navbar-item">Sign Up</a>
+                        <a href="{{ url_for('bp_open.logout') }}" class="navbar-item">Logout</a>
+                        {% endif %}
+
+                        {% if not current_user.is_authenticated %}
                         <a href="{{ url_for('bp_open.login_get') }}" class="navbar-item">Login</a>
+                        <a href="{{ url_for('bp_open.signup_get') }}" class="navbar-item">Sign Up</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

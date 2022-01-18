@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, login_required, logout_user
 from models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -12,6 +12,7 @@ def index():
 
 
 @bp_open.get('/profile')
+@login_required
 def profile_get():
     return render_template("profile.html", name=current_user.name)
 
@@ -62,3 +63,10 @@ def signup_post():
     db.session.commit()
 
     return redirect(url_for('bp_open.login_get'))
+
+
+@bp_open.get('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('bp_open.index'))
