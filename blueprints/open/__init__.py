@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
-from flask_login import login_user
+from flask_login import login_user, current_user
 from models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -13,7 +13,7 @@ def index():
 
 @bp_open.get('/profile')
 def profile_get():
-    return render_template("profile.html")
+    return render_template("profile.html", name=current_user.name)
 
 
 @bp_open.get('/login')
