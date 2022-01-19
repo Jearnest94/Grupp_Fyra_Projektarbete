@@ -1,9 +1,6 @@
 import datetime
 from flask_admin.contrib.sqla import ModelView
-from flask_login import UserMixin
-from sqlalchemy.orm import relationship
-from sqlalchemy import DateTime
-
+from flask_login import UserMixin, current_user
 from app import db, admin
 
 
@@ -15,9 +12,12 @@ class User(UserMixin, db.Model):
     mangocount = db.Column(db.Integer, default=0)
     admin = db.Column(db.BOOLEAN, default=False)
 
-class MyModelView(ModelView, UserMixin):
+
+class MyModelView(ModelView):
     def is_accessible(self):
-        return
+        return current_user.name == 'admin'
+
+
 
 class Message(db.Model):
     messageid = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -28,5 +28,5 @@ class Message(db.Model):
     timestamp = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
 
-admin.add_view(ModelView(User, db.session))
-admin.add_view(ModelView(Message, db.session))
+admin.add_view(MyModelView(User, db.session))
+admin.add_view(MyModelView(Message, db.session))
