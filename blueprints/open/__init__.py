@@ -8,13 +8,14 @@ bp_open = Blueprint('bp_open', __name__)
 
 @bp_open.get('/')
 def index():
-    return render_template("index.html", name=current_user.name, mangocount = User.query.filter_by(email=current_user.email).first().mangocount)
+    return render_template("index.html")
 
 
 @bp_open.get('/profile')
 @login_required
 def profile_get():
-    return render_template("profile.html", name=current_user.name)
+    return render_template("profile.html", name=current_user.name, email=current_user.email,
+                           mangocount=User.query.filter_by(email=current_user.email).first().mangocount)
 
 
 @bp_open.get('/login')

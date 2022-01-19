@@ -6,6 +6,10 @@
 
 {% block content %}
     <div class="column is-4 is-offset-4">
-        <h1 class="title">Welcome {{ name }}! You are officially logged into Mango</h1>
+        <h1 class="title">User Profile</h1>
+
+        <p>Name: {{ name }}</p>
+        <p>Username:<i> {{ email }}</i></p>
+        <p>Mango Count: {{ mangocount }}</p>
     </div>
 {% endblock %}

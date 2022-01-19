@@ -8,5 +8,37 @@
     <div class="column is-4 is-offset-4">
         <h1 class="title">Mango Messaging</h1>
         <p>Hello {{ name }}</p>
+        <i>Signed in as {{ email }}</i></br></br>
+
+
+        <form class="box">
+            <form action="{{ url_for('bp_user.messages_post') }}" method="POST">
+                <div class="field">
+                    <label class="label">Receipent</label>
+                    <div class="control">
+                        <input name="email" class="input" type="text" placeholder="Email">
+                    </div>
+                </div>
+
+
+                <div class="field">
+                    <label class="label">Title</label>
+                    <div class="control">
+                        <input name="title"  class="input" type="text" placeholder="Message Title">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Message</label>
+                    <div class="control">
+                        <input name="content" class="input" type="text" placeholder="Message">
+                    </div>
+                </div>
+
+                <button type="submit" class="button is-primary">Send</button>
+            </form>
+        </form>
+
+
     </div>
 {% endblock %}

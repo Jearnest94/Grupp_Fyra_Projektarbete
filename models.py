@@ -1,5 +1,8 @@
+import datetime
+
 from flask_login import UserMixin
 from sqlalchemy.orm import relationship
+from sqlalchemy import DateTime
 
 from app import db
 
@@ -13,10 +16,10 @@ class User(UserMixin, db.Model):
     admin = db.Column(db.BOOLEAN, default=False)
 
 
-class Messages(db.Model):
+class Message(db.Model):
     messageid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     fromuser = db.Column(db.BigInteger, db.ForeignKey('user.id'), nullable=False)
     touser = db.Column(db.BigInteger, db.ForeignKey('user.id'), nullable=False)
     title = db.Column(db.String(50))
     content = db.Column(db.String(250))
-    timestamp = db.Column(db.TIMESTAMP)
+    timestamp = db.Column(db.DateTime, default=datetime.datetime.utcnow)
