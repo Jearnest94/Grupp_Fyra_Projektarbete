@@ -11,12 +11,11 @@
         <i>Signed in as {{ email }}</i></br></br>
 
 
-        <form class="box">
-            <form action="{{ url_for('bp_user.messages_post') }}" method="POST">
+        <form action="{{ url_for('bp_user.messages_post') }}" method="POST" class="box">
                 <div class="field">
                     <label class="label">Receipent</label>
                     <div class="control">
-                        <input name="email" class="input" type="text" placeholder="Email">
+                        <input name="touser" class="input" type="text" placeholder="Email">
                     </div>
                 </div>
 
@@ -37,7 +36,6 @@
 
                 <button type="submit" class="button is-primary">Send</button>
             </form>
-        </form>
 
 
     </div>
