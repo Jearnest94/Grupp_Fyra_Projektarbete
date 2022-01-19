@@ -9,7 +9,6 @@ db = SQLAlchemy()
 admin = Admin()
 
 
-
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = '123secret'
