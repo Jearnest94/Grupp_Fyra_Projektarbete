@@ -2,8 +2,12 @@ from flask import Flask, render_template, request, url_for, redirect
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 
 db = SQLAlchemy()
+admin = Admin()
+
 
 
 def create_app():
@@ -11,6 +15,7 @@ def create_app():
     app.config['SECRET_KEY'] = '123secret'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 
+    admin.init_app(app)
     db.init_app(app)
 
     login_manager = LoginManager()
