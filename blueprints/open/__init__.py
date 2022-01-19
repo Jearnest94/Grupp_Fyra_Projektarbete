@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash, session
 from flask_login import login_user, current_user, login_required, logout_user
 from models import User
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -8,7 +8,7 @@ bp_open = Blueprint('bp_open', __name__)
 
 @bp_open.get('/')
 def index():
-    return render_template("index.html")
+    return render_template("index.html", name=current_user.name, mangocount = User.query.filter_by(email=current_user.email).first().mangocount)
 
 
 @bp_open.get('/profile')
@@ -27,7 +27,7 @@ def login_post():
     email = request.form.get('email')
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
-
+    session['email'] = email
     user = User.query.filter_by(email=email).first()
 
     if not user or not check_password_hash(user.password, password):

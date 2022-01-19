@@ -1,23 +1,38 @@
-        body {
-            background-color: lemonchiffon;
-        }
+body {
+    background-color: lemonchiffon;
+}
 
-        .menu-item {
-            margin: 5px;
-            color: dodgerblue;
-        }
+.menu-item {
+    margin: 5px;
+    color: dodgerblue;
+}
 
-        .list-thumbnail {
-            margin-top: 10px;
-            margin-left: 10px;
-            height: 160px;
-            width: 160px;
-        }
+.list-thumbnail {
+    margin-top: 10px;
+    margin-left: 10px;
+    height: 160px;
+    width: 160px;
+}
 
-        .button-submit {
-            margin-bottom: 10px;
-        }
+.button-submit {
+    margin-bottom: 10px;
+}
 
-        .text-box {
-            margin-bottom: 10px;
-        }
+.text-box {
+    margin-bottom: 10px;
+}
+
+.mango-spin:hover {
+    cursor: default;
+    transform: rotate(360deg);
+    transition: all 0.3s ease-in-out 0s;
+}
+
+.hide-mango-button {
+    background: transparent;
+    border: none !important;
+}
+
+.mango-wrapper {
+    display: flex;
+}

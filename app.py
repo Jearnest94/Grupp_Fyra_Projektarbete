@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, url_for, redirect
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 db = SQLAlchemy()
 
@@ -32,3 +33,7 @@ def create_app():
     app.register_blueprint(bp_admin)
 
     return app
+
+
+app = create_app()
+migrate = Migrate(app, db)

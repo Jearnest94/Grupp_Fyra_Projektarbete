@@ -9,12 +9,25 @@
 {% block content %}
     <div class="column is-4 is-offset-4">
         <h1 class="title">Welcome to the Mango Project!</h1>
-        <p style="float: right">The mango goes 'round, 'round and 'round 'round and 'round 'round and 'round!</p>
-        <br/>
-        <img class="list-thumbnail" src="{{ url_for('static', filename='img/mango.gif') }}">
-        <img class="list-thumbnail" src="{{ url_for('static', filename='img/mango.gif') }}">
-        <img class="list-thumbnail" src="{{ url_for('static', filename='img/mango.gif') }}">
-        <p>What a blessing!</p>
+        <p style="float: right">The mango goes 'round, 'round and 'round 'round and 'round 'round and 'round!</p><br/>
+        <div class="mango-wrapper">
+        <form action="{{ url_for('bp_user.mangocount_post') }}" method="POST">
+            <button class="hide-mango-button" type="submit">
+                <img class="list-thumbnail mango-spin" src="{{ url_for('static', filename='img/mango.gif') }}">
+            </button>
+        </form>
+        <form action="{{ url_for('bp_user.mangocount_post') }}" method="POST">
+            <button class="hide-mango-button" type="submit">
+                <img class="list-thumbnail mango-spin" src="{{ url_for('static', filename='img/mango.gif') }}">
+            </button>
+        </form>
+        <form action="{{ url_for('bp_user.mangocount_post') }}" method="POST">
+            <button class="hide-mango-button" type="submit">
+                <img class="list-thumbnail mango-spin" src="{{ url_for('static', filename='img/mango.gif') }}">
+            </button>
+        </form>
+        </div>
+        <p>What a blessing! {{ name }}</p>
+        <p>Mango Count: {{ mangocount }} </p>
     </div>
-
 {% endblock %}
