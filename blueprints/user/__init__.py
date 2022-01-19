@@ -38,7 +38,7 @@ def chat_get():
 
 @bp_user.get('/messages')
 def messages_get():
-    return render_template('messages.html', name=current_user.name, email=current_user.email)
+    return render_template('messages.html', name=current_user.name, email=current_user.email, title=Message.query.first().title, content=Message.query.first().content, fromuser=Message.query.first().fromuser, timestamp=Message.query.first().timestamp)
 
 
 @bp_user.post('/messages')

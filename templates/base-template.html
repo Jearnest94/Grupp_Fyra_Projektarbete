@@ -16,7 +16,7 @@
             <div class="container">
                 <div id="navbarMenuHeroA" class="navbar-menu">
                     <div class="navbar-end">
-                        {% if current_user.name == "admin" %}
+                        {% if current_user.admin %}
                             <a href="http://127.0.0.1:5000/admin" class="navbar-item">Admin</a>
                         {% endif %}
                         {% if current_user.is_authenticated %}

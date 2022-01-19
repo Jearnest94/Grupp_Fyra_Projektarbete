@@ -15,7 +15,7 @@ class User(UserMixin, db.Model):
 
 class MyModelView(ModelView):
     def is_accessible(self):
-        return current_user.name == 'admin'
+        return current_user.admin
 
 
 
