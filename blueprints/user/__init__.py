@@ -33,7 +33,8 @@ def profile_get():
 
 @bp_user.get('/chat')
 def chat_get():
-    return render_template('chat.html', name=current_user.name)
+    users = User.query.all()
+    return render_template('chat.html', name=current_user.name, userlist=users)
 
 
 @bp_user.get('/messages')

@@ -5,8 +5,11 @@
 {% endblock %}
 
 {% block content %}
-    <div class="column is-4 is-offset-4">
-        <h1 class="title">Mango Chat</h1>
-        <p>Hello {{ name }}</p>
-    </div>
+    {% for eachuser in userlist %}
+        <ul>
+            <li>
+                <a href="/messages">{{ eachuser.name }}</a>
+            </li>
+        </ul>
+    {% endfor %}
 {% endblock %}
