@@ -38,17 +38,17 @@ def chat_get():
 
 @bp_user.get('/messages')
 def messages_get():
-    return render_template('messages.html', name=current_user.name, email=current_user.email, title=Message.query.first().title, content=Message.query.first().content, fromuser=Message.query.first().fromuser, timestamp=Message.query.first().timestamp)
+    return render_template('messages.html', name=current_user.name, email=current_user.email, title=Message.query.first().title, content=Message.query.first().content, fromuser=Message.query.first().sender, timestamp=Message.query.first().timestamp)
 
 
 @bp_user.post('/messages')
 def messages_post():
     print('msg_post')
-    touser = request.form.get('touser')
+    recipient = request.form.get('recipient')
     title = request.form.get('title')
     content = request.form.get('content')
-    fromuser = current_user.email
-    new_message = Message(touser=touser, title=title, content=content, fromuser=fromuser)
+    sender = current_user.email
+    new_message = Message(recipient=recipient, title=title, content=content, sender=sender)
     from app import db
     db.session.add(new_message)
     db.session.commit()

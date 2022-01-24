@@ -20,9 +20,9 @@ class MyModelView(ModelView):
 
 
 class Message(db.Model):
-    messageid = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    fromuser = db.Column(db.BigInteger, db.ForeignKey('user.id'), nullable=False)
-    touser = db.Column(db.BigInteger, db.ForeignKey('user.id'), nullable=False)
+    message_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    sender = db.Column(db.BigInteger, db.ForeignKey('user.id'), nullable=False)
+    recipient = db.Column(db.BigInteger, db.ForeignKey('user.id'), nullable=False)
     title = db.Column(db.String(50))
     content = db.Column(db.String(250))
     timestamp = db.Column(db.DateTime, default=datetime.datetime.utcnow)
