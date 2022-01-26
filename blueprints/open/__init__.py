@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, session
-from flask_login import login_user, current_user, login_required, logout_user
+from flask_login import login_user, current_user, login_required
 from models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -10,12 +10,6 @@ bp_open = Blueprint('bp_open', __name__)
 def index():
     return render_template("index.html")
 
-
-@bp_open.get('/profile')
-@login_required
-def profile_get():
-    return render_template("profile.html", name=current_user.name, email=current_user.email,
-                           mangocount=User.query.filter_by(email=current_user.email).first().mangocount)
 
 
 @bp_open.get('/login')
@@ -37,7 +31,14 @@ def login_post():
 
     # if the above check passes, then we know the user has the right credentials
     login_user(user, remember=remember)
-    return redirect(url_for('bp_open.profile_get'))
+
+    login_user(user)
+    user.online = True
+
+    from app import db
+    db.session.commit()
+
+    return redirect(url_for('bp_user.profile_get'))
 
 
 @bp_open.get('/signup')
@@ -64,10 +65,3 @@ def signup_post():
     db.session.commit()
 
     return redirect(url_for('bp_open.login_get'))
-
-
-@bp_open.get('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('bp_open.index'))

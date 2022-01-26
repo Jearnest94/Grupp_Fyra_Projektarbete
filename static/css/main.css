@@ -106,3 +106,36 @@ body {
 .form-container .btn:hover, .open-button:hover {
   opacity: 1;
 }
+
+.chat {
+    width: 75%;
+}
+
+.users {
+    alignment: left;
+
+}
+.center-content {
+    text-align: center;
+}
+
+.center-content {
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+.circle {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: aqua;
+}
+
+.online {
+    background: chartreuse;
+}
+
+.offline {
+    background: crimson;
+}

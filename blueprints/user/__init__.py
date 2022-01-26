@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, session, request, redirect, url_for
-from flask_login import current_user, login_required
+from flask_login import current_user, login_required, logout_user
+
+from controllers.user_controller import get_all_users
 from models import User, Message
 
 bp_user = Blueprint('bp_user', __name__)
@@ -33,13 +35,14 @@ def profile_get():
 
 @bp_user.get('/chat')
 def chat_get():
-    users = User.query.all()
+    users = get_all_users()
     return render_template('chat.html', name=current_user.name, userlist=users)
 
 
 @bp_user.get('/messages')
 def messages_get():
-    return render_template('messages.html', name=current_user.name, email=current_user.email, title=Message.query.first().title,
+    users = get_all_users()
+    return render_template('messages.html', userlist=users, name=current_user.name, email=current_user.email, title=Message.query.first().title,
                            content=Message.query.first().content, fromuser=Message.query.first().sender, timestamp=Message.query.first().timestamp)
 
 
@@ -56,3 +59,14 @@ def messages_post():
     db.session.commit()
 
     return redirect(url_for('bp_user.messages_get'))
+
+@bp_user.get('/logout')
+@login_required
+def logout():
+    user = current_user
+    user.online = False
+
+    from app import db
+    db.session.commit()
+    logout_user()
+    return redirect(url_for('bp_open.index'))

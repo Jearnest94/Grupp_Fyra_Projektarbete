@@ -11,6 +11,7 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(100))
     mangocount = db.Column(db.Integer, default=0)
     admin = db.Column(db.BOOLEAN, default=False)
+    online = db.Column(db.BOOLEAN, default=False)
 
 
 class MyModelView(ModelView):

@@ -5,13 +5,22 @@
 {% endblock %}
 
 {% block content %}
-    {% for eachuser in userlist %}
-        <ul>
-            <li>
-                <a href="/messages">{{ eachuser.name }}</a>
-            </li>
-        </ul>
+    <h1>Online users</h1><br />
+    <table class="chat">
+        <tr>
+            <th>User Name</th>
+            <th>User email</th>
+        </tr>
+    {% for user in userlist %}
+        {% if user.online %}
+            <tr>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+            </tr>
+        {% endif %}
     {% endfor %}
+    </table>
+    <br />
     <div class="chat-popup" id="myForm">
       <form action="/action_page.php" class="form-container">
         <h1>Chat</h1>
