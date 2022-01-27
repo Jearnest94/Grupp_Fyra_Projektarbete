@@ -1,41 +1,19 @@
 {% extends "base-template.html" %}
 
+
+
 {% block title %}
     Mango Messaging
 {% endblock %}
 
 {% block content %}
 
-    <div class="users">
-        <h2>All users</h2>
-        <table>
-            <tr>
-                <th>User Name</th>
-                <th>User email</th>
-                <th>Online</th>
-            </tr>
-            {% for user in userlist %}
-                <tr>
-                    <td>{{ user.name }}</td>
-                    <td>{{ user.email }}</td>
-                    <td class="center-content">
-                        {% if user.online %}
-                            <div class="circle online"></div>
-                        {% else %}
-                            <div class="circle offline"></div>
-                        {% endif %}
-                    </td>
-                </tr>
-            {% endfor %}
-
-        </table>
-    </div>
-
     <div class="column is-4 is-offset-4">
         <h1 class="title">Mango Messaging</h1>
         <p>Hello {{ name }}</p>
-        <i>Signed in as {{ email }}</i></br></br>
-
+        <i>Signed in as {{ email }}</i>
+        <br />
+        <br />
 
         <form action="{{ url_for('bp_user.messages_post') }}" method="POST" class="box">
             <div class="field">
@@ -60,12 +38,10 @@
                 </div>
             </div>
 
-            <input type="hidden" name="user_id" value="{{ recipient.id }}">
 
             <button type="submit" class="button is-primary">Send</button>
         </form>
-        </br>
-
+        <br />
 
     </div>
 {% endblock %}

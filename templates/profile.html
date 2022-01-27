@@ -1,18 +1,17 @@
 {% extends "base-template.html" %}
 
 {% block title %}
-    Mango Profile
+    Mango Profile - {{ recipent.name }}
 {% endblock %}
 
 {% block content %}
     <div class="column is-4 is-offset-4">
-        <h1 class="title">User Profile for {{ receiver.name }}</h1>
-
-        <p>Name: {{ receiver.name }}</p>
-        <p>Username:<i> {{ receiver.email }}</i></p>
-        <p>Mango Count: {{ mangocount }}</p>
+        <h1 class="title">User Profile for {{ recipent.name }}</h1>
+        <p>Name: {{ recipent.name }}</p>
+        <p>Username:<i> {{ recipent.email }}</i></p>
+        <p>Mango Count: {{ recipent.mangocount }}</p>
         <button type="button" onclick="window.location.href='/messages';">Send message</button>
-        {% if receiver.online %}
+        {% if recipent.online %}
         <button type="button" onclick="window.location.href='/chat';">Chat</button>
         {% else %}
         <button type="button" onclick="window.location.href='chat';" disabled>Chat</button>

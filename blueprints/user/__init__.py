@@ -34,11 +34,12 @@ def profile_get():
     return render_template("my_profile.html", userlist=users, name=current_user.name, email=current_user.email,
                            mangocount=User.query.filter_by(email=current_user.email).first().mangocount)
 
+
 @bp_user.get('/profile/<user_id>')
 def profile_get_user(user_id):
     user_id = int(user_id)
-    receiver = get_user_by_id(user_id)
-    return render_template('profile.html', receiver=receiver)
+    recipent = get_user_by_id(user_id)
+    return render_template('profile.html', recipent=recipent)
 
 
 @bp_user.get('/inbox')
@@ -56,8 +57,7 @@ def chat_get():
 @bp_user.get('/messages')
 def messages_get():
     users = get_all_users()
-    recipient = User.query.filter_by(email=current_user.email).first().id
-    return render_template('messages.html', userlist=users, name=current_user.name, email=current_user.email, recipient=recipient)
+    return render_template('messages.html', userlist=users, name=current_user.name, email=current_user.email)
 
 
 @bp_user.post('/messages')
@@ -66,7 +66,6 @@ def messages_post():
     content = request.form['content']
     email = request.form['recipient']
     recipient_id = User.query.filter_by(email=email).first().id
-    print(recipient_id)
     create_message(title, content, recipient_id)
     return redirect(url_for('bp_user.messages_get'))
 
