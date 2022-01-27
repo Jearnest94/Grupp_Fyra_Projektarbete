@@ -27,7 +27,9 @@
             </button>
         </form>
         </div>
-        <p>What a blessing! {{ name }}</p>
-        <p>Mango Count: {{ mangocount }} </p>
+        <p>What a blessing! </p>
+        {% if current_user.is_authenticated %}
+        <p>Mango Count: {{ current_user.mangocount }} </p>
+        {% endif %}
     </div>
 {% endblock %}
