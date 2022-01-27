@@ -38,8 +38,8 @@ def profile_get():
 @bp_user.get('/profile/<user_id>')
 def profile_get_user(user_id):
     user_id = int(user_id)
-    recipent = get_user_by_id(user_id)
-    return render_template('profile.html', recipent=recipent)
+    recipient = get_user_by_id(user_id)
+    return render_template('profile.html', recipent=recipient)
 
 
 @bp_user.get('/inbox')

@@ -12,6 +12,7 @@ admin = Admin()
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = '123secret'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 
     admin.init_app(app)
