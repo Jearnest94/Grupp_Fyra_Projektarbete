@@ -25,7 +25,7 @@ body {
 }
 
 .mango-spin:hover {
-    cursor: default;
+    cursor: url("/static/assets/mangocursor_skalad_32.png") ,auto;
     transform: rotate(360deg);
     transition: all 0.3s ease-in-out 0s;
 }
