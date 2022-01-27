@@ -51,7 +51,7 @@ def profile_get():
 def profile_get_user(user_id):
     user_id = int(user_id)
     recipient = get_user_by_id(user_id)
-    return render_template('profile_user.html',  recipent=recipient)
+    return render_template('profile_user.html', recipent=recipient)
 
 
 @bp_user.get('/messages/<user_id>')
@@ -76,21 +76,6 @@ def messages_post(user_id):
 @bp_user.get('/messages/sent')
 def messages_get_sent():
     return render_template('message_sent.html')
-
-
-# @bp_user.get('/messages_recipient')
-# def messages_recipient_get():
-#     return render_template('messages.html', name=current_user.name, email=current_user.email)
-
-
-# @bp_user.post('/messages')
-# def messages_post():
-#     title = request.form['title']
-#     content = request.form['content']
-#     email = request.form['recipient']
-#     recipient_id = User.query.filter_by(email=email).first().id
-#     create_message(title, content, recipient_id)
-#     return redirect(url_for('bp_user.messages_get'))
 
 
 @bp_user.get('/logout')
