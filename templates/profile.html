@@ -6,10 +6,16 @@
 
 {% block content %}
     <div class="column is-4 is-offset-4">
-        <h1 class="title">User Profile</h1>
+        <h1 class="title">User Profile for {{ receiver.name }}</h1>
 
-        <p>Name: {{ name }}</p>
-        <p>Username:<i> {{ email }}</i></p>
+        <p>Name: {{ receiver.name }}</p>
+        <p>Username:<i> {{ receiver.email }}</i></p>
         <p>Mango Count: {{ mangocount }}</p>
+        <button type="button" onclick="window.location.href='/messages';">Send message</button>
+        {% if receiver.online %}
+        <button type="button" onclick="window.location.href='/chat';">Chat</button>
+        {% else %}
+        <button type="button" onclick="window.location.href='chat';" disabled>Chat</button>
+        {% endif %}
     </div>
 {% endblock %}

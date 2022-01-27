@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, session, request, redirect, url_for
 from flask_login import current_user, login_required, logout_user
 
-from controllers.user_controller import get_all_users
+from controllers.user_controller import get_all_users, get_user_by_id
 from models import User, Message
 
 bp_user = Blueprint('bp_user', __name__)
@@ -9,7 +9,8 @@ bp_user = Blueprint('bp_user', __name__)
 
 @bp_user.get('/')
 def index():
-    return render_template("index.html", name=current_user.name,
+    users = get_all_users()
+    return render_template("index.html", name=current_user.name, userlist=users,
                            mangocount=User.query.filter_by(email=current_user.email).first().mangocount)
 
 
@@ -29,8 +30,15 @@ def mangocount_post():
 
 @bp_user.get('/profile')
 def profile_get():
-    return render_template("profile.html", name=current_user.name, email=current_user.email,
+    users = get_all_users()
+    return render_template("my_profile.html", userlist=users, name=current_user.name, email=current_user.email,
                            mangocount=User.query.filter_by(email=current_user.email).first().mangocount)
+
+@bp_user.get('/profile/<user_id>')
+def profile_get_user(user_id):
+    user_id = int(user_id)
+    receiver = get_user_by_id(user_id)
+    return render_template('profile.html', receiver=receiver)
 
 
 @bp_user.get('/chat')
@@ -41,8 +49,7 @@ def chat_get():
 
 @bp_user.get('/messages')
 def messages_get():
-    users = get_all_users()
-    return render_template('messages.html', userlist=users, name=current_user.name, email=current_user.email, title=Message.query.first().title,
+    return render_template('messages.html', name=current_user.name, email=current_user.email, title=Message.query.first().title,
                            content=Message.query.first().content, fromuser=Message.query.first().sender, timestamp=Message.query.first().timestamp)
 
 

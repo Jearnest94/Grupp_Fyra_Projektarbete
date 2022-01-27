@@ -107,12 +107,8 @@ body {
   opacity: 1;
 }
 
-.chat {
-    width: 75%;
-}
-
 .users {
-    alignment: left;
+    width: 75%;
 
 }
 .center-content {
