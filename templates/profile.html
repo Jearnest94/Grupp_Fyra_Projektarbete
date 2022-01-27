@@ -29,7 +29,8 @@
     <div class="column is-4 is-offset-4">
         <h1 class="title">User Profile</h1>
         <p>Name: {{ current_user.name }}</p>
-        <p>Name: {{ current_user.email }}</p>
         <p>Mango Count: {{ mangocount }}</p>
+        <br/>
+        <i>Signed in as {{ current_user.email }}</i>
     </div>
 {% endblock %}
