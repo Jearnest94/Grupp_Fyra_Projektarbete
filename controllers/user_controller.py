@@ -9,4 +9,4 @@ def get_all_users():
 
 def get_user_by_id(user_id):
     from models import User
-    return User.query.filter(User.id==user_id).first()
+    return User.query.filter(User.id == user_id).first()

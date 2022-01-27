@@ -6,28 +6,28 @@
 
 {% block content %}
     <div class="users">
-    <h2>All users</h2>
-    <table>
-        <tr>
-            <th>User Name</th>
-            <th>User email</th>
-            <th>Online</th>
-        </tr>
-        {% for user in userlist %}
+        <h2>All users</h2>
+        <table>
             <tr>
-                <td>{{ user.name }}</td>
-                <td>{{  user.email }}</td>
-                <td class="center-content">
-                    {% if user.online %}
-                        <div class="circle online"></div>
-                    {% else %}
-                        <div class="circle offline"></div>
-                    {% endif %}
-                </td>
+                <th>User Name</th>
+                <th>User email</th>
+                <th>Online</th>
             </tr>
-        {% endfor %}
+            {% for user in userlist %}
+                <tr>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td class="center-content">
+                        {% if user.online %}
+                            <div class="circle online"></div>
+                        {% else %}
+                            <div class="circle offline"></div>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
 
-    </table>
+        </table>
     </div>
     <div class="column is-4 is-offset-4">
         <h1 class="title">Mango Messaging</h1>
@@ -58,18 +58,11 @@
                 </div>
             </div>
 
+            <input type="hidden" name="user_id" value="{{ recipient.id }}">
+
             <button type="submit" class="button is-primary">Send</button>
         </form>
         </br>
-        <h1 class="title">Inbox</h1>
-        <div class="box">
-            <label class="label">Title: {{ title }}</label>
-            <label class="label">From: {{ sender }}</label>
-            <p>Message: {{ content }}</p>
-            <p>Timestamp: {{ timestamp }}</p>
-
-
-        </div>
 
 
     </div>

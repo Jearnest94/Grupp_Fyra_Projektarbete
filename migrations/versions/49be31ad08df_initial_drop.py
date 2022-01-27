@@ -30,13 +30,13 @@ def upgrade():
     )
     op.create_table('messages',
     sa.Column('messageid', sa.Integer(), autoincrement=True, nullable=False),
-    sa.Column('sender', sa.BigInteger(), nullable=False),
-    sa.Column('recipient', sa.BigInteger(), nullable=False),
+    sa.Column('sender_id', sa.BigInteger(), nullable=False),
+    sa.Column('recipient_id', sa.BigInteger(), nullable=False),
     sa.Column('title', sa.String(length=50), nullable=True),
     sa.Column('content', sa.String(length=250), nullable=True),
     sa.Column('timestamp', sa.TIMESTAMP(), nullable=True),
-    sa.ForeignKeyConstraint(['sender'], ['user.id'], ),
-    sa.ForeignKeyConstraint(['recipient'], ['user.id'], ),
+    sa.ForeignKeyConstraint(['sender_id'], ['user.id'], ),
+    sa.ForeignKeyConstraint(['recipient_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('messageid')
     )
     # ### end Alembic commands ###
