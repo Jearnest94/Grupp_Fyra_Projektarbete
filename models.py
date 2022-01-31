@@ -17,15 +17,14 @@ class User(UserMixin, db.Model):
     mangocount = db.Column(db.Integer, default=0)
     admin = db.Column(db.BOOLEAN, default=False)
     online = db.Column(db.BOOLEAN, default=False)
-
+    last_message_read_time = db.Column(db.DateTime)
     sent_messages = db.relationship('Message', backref='sender', lazy=True)
     recv_messages = db.relationship('Message', secondary=message_recv, lazy='subquery',
                                     backref=db.backref('recipients', lazy=True))
 
     def new_messages(self):
-        last_read_time = self.last_message_read_time or datetime(1900, 1, 1)
-        return Message.query.filter_by(recipient=self).filter(
-            Message.timestamp > last_read_time).count()
+        data = db.session.query(Message, message_recv).join(Message).all()
+        return
 
 
 class MyModelView(ModelView):
@@ -39,9 +38,7 @@ class Message(db.Model):
     title = db.Column(db.String(50))
     content = db.Column(db.String(250))
     timestamp = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-
-    def __repr__(self):
-        return '<Message {}>'.format(self.body)
+    has_been_read = db.Column(db.BOOLEAN, default=False)
 
 
 admin.add_view(MyModelView(User, db.session))

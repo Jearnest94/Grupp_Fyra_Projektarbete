@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"/>
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+          integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
 <section class="hero is-primary">
@@ -22,7 +25,20 @@
                         {% if current_user.is_authenticated %}
                             <a href="{{ url_for('bp_user.index') }}" class="navbar-item">Home</a>
                             <a href="{{ url_for('bp_user.chat_get') }}" class="navbar-item">Chat</a>
-                            <a href="{{ url_for('bp_user.inbox_get') }}" class="navbar-item">Inbox</a>
+                            <a href="{{ url_for('bp_user.inbox_get') }}" class="navbar-item">
+                                <span class="icon-text">
+                                    {% for message in messages_data %}
+                                        {% if message.user_id == current_user.id %}
+                                            {% if message.has_been_read == 0 %}
+                                                <span class="icon is-small has-text-danger">
+                                                    <i class="fas fa-circle icon"></i>
+                                                </span>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                <span>Inbox</span>
+                            </span>
+                            </a>
                             <a href="{{ url_for('bp_user.profile_get') }}" class="navbar-item">Profile</a>
                             <a href="{{ url_for('bp_user.logout') }}" class="navbar-item">Logout</a>
                         {% endif %}
@@ -37,6 +53,7 @@
             </div>
         </nav>
     </div>
+
 </section>
 {% block content %}
 {% endblock %}

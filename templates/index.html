@@ -10,26 +10,34 @@
     <div class="column is-4 is-offset-4">
         <h1 class="title">Welcome to the Mango Project!</h1>
         <p>The mango goes 'round, 'round and 'round 'round and 'round 'round and 'round!</p><br/>
+
         <div class="mango-wrapper">
-        <form action="{{ url_for('bp_user.mangocount_post') }}" method="POST">
-            <button class="hide-mango-button" type="submit">
+            {% if current_user.is_authenticated %}
+                <form action="{{ url_for('bp_user.mangocount_post') }}" method="POST">
+                    <button class="hide-mango-button" type="submit">
+                        <img class="list-thumbnail mango-spin" src="{{ url_for('static', filename='img/mango.gif') }}">
+                    </button>
+                </form>
+                <form action="{{ url_for('bp_user.mangocount_post') }}" method="POST">
+                    <button class="hide-mango-button" type="submit">
+                        <img class="list-thumbnail mango-spin" src="{{ url_for('static', filename='img/mango.gif') }}">
+                    </button>
+                </form>
+                <form action="{{ url_for('bp_user.mangocount_post') }}" method="POST">
+                    <button class="hide-mango-button" type="submit">
+                        <img class="list-thumbnail mango-spin" src="{{ url_for('static', filename='img/mango.gif') }}">
+                    </button>
+                </form>
+            {% endif %}
+            {% if not current_user.is_authenticated %}
                 <img class="list-thumbnail mango-spin" src="{{ url_for('static', filename='img/mango.gif') }}">
-            </button>
-        </form>
-        <form action="{{ url_for('bp_user.mangocount_post') }}" method="POST">
-            <button class="hide-mango-button" type="submit">
                 <img class="list-thumbnail mango-spin" src="{{ url_for('static', filename='img/mango.gif') }}">
-            </button>
-        </form>
-        <form action="{{ url_for('bp_user.mangocount_post') }}" method="POST">
-            <button class="hide-mango-button" type="submit">
                 <img class="list-thumbnail mango-spin" src="{{ url_for('static', filename='img/mango.gif') }}">
-            </button>
-        </form>
+            {% endif %}
         </div>
         <p>What a blessing! </p>
         {% if current_user.is_authenticated %}
-        <p>Mango Count: {{ current_user.mangocount }} </p>
+            <p>Mango Count: {{ current_user.mangocount }} </p>
         {% endif %}
     </div>
 {% endblock %}

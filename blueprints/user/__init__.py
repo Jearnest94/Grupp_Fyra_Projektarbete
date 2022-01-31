@@ -1,8 +1,12 @@
+from datetime import datetime
+
 from flask import Blueprint, render_template, session, request, redirect, url_for
 from flask_login import current_user, login_required, logout_user
-from controllers.message_controller import get_user_messages, create_message
+
+from app import db
+from controllers.message_controller import get_user_messages, create_message, mark_as_read
 from controllers.user_controller import get_all_users, get_user_by_id
-from models import User, Message
+from models import User, Message, message_recv
 
 bp_user = Blueprint('bp_user', __name__)
 
@@ -10,20 +14,20 @@ bp_user = Blueprint('bp_user', __name__)
 @bp_user.get('/')
 def index():
     users = get_all_users()
+    messages = get_user_messages()
+    messages_data = db.session.query(Message.has_been_read, message_recv).join(Message).all()
     return render_template("index.html", name=current_user.name, userlist=users,
-                           mangocount=User.query.filter_by(email=current_user.email).first().mangocount)
+                           mangocount=User.query.filter_by(email=current_user.email).first().mangocount, messages=messages, messages_data=messages_data)
 
 
 @bp_user.post('/')
 def mangocount_post():
-    from app import db
     email = session['email']
     user = User.query.filter_by(email=email).first()
     if user.mangocount is None:
         user.mangocount = 1
     else:
         user.mangocount += 1
-    print(user.mangocount)
     db.session.commit()
     return render_template('index.html', mangocount=str(user.mangocount))
 
@@ -31,34 +35,40 @@ def mangocount_post():
 @bp_user.get('/inbox')
 def inbox_get():
     messages = get_user_messages()
-    return render_template("inbox.html", email=current_user.email, messages=messages)
+    messages_data = db.session.query(Message.has_been_read, message_recv).join(Message).all()
+    mark_as_read()
+    return render_template("inbox.html", email=current_user.email, messages=messages, messages_data=messages_data)
 
 
 @bp_user.get('/chat')
 def chat_get():
     users = get_all_users()
-    return render_template('chat.html', name=current_user.name, userlist=users)
+    messages_data = db.session.query(Message.has_been_read, message_recv).join(Message).all()
+    return render_template('chat.html', name=current_user.name, userlist=users, messages_data=messages_data)
 
 
 @bp_user.get('/profile')
 def profile_get():
     users = get_all_users()
+    messages_data = db.session.query(Message.has_been_read, message_recv).join(Message).all()
     return render_template("profile.html", userlist=users, name=current_user.name, email=current_user.email,
-                           mangocount=User.query.filter_by(email=current_user.email).first().mangocount)
+                           mangocount=User.query.filter_by(email=current_user.email).first().mangocount, messages_data=messages_data)
 
 
 @bp_user.get('/profile/<user_id>')
 def profile_get_user(user_id):
     user_id = int(user_id)
     recipient = get_user_by_id(user_id)
-    return render_template('profile_user.html', recipent=recipient)
+    messages_data = db.session.query(Message.has_been_read, message_recv).join(Message).all()
+    return render_template('profile_user.html', recipent=recipient, messages_data=messages_data)
 
 
 @bp_user.get('/messages/<user_id>')
 def messages_get_user(user_id):
     user_id = int(user_id)
     recipient = get_user_by_id(user_id)
-    return render_template('messages.html', name=current_user.name, email=current_user.email, recipient=recipient)
+    messages_data = db.session.query(Message.has_been_read, message_recv).join(Message).all()
+    return render_template('messages.html', name=current_user.name, email=current_user.email, recipient=recipient, messages_data=messages_data)
 
 
 @bp_user.post('/messages/<user_id>')
@@ -66,16 +76,14 @@ def messages_post(user_id):
     title = request.form['title']
     content = request.form['content']
     user_id = int(user_id)
-    print(user_id)
-    recipient = get_user_by_id(user_id)
-    print(recipient)
     create_message(title, content, user_id)
     return redirect(url_for('bp_user.messages_get_sent'))
 
 
 @bp_user.get('/messages/sent')
 def messages_get_sent():
-    return render_template('message_sent.html')
+    messages_data = db.session.query(Message.has_been_read, message_recv).join(Message).all()
+    return render_template('message_sent.html', messages_data=messages_data)
 
 
 @bp_user.get('/logout')
