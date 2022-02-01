@@ -3,6 +3,7 @@ from datetime import datetime
 from flask import Blueprint, render_template, session, request, redirect, url_for
 from flask_login import current_user, login_required, logout_user
 
+import mqtt_publish
 from app import db
 from controllers.message_controller import get_user_messages, create_message, mark_as_read
 from controllers.user_controller import get_all_users, get_user_by_id
@@ -77,6 +78,7 @@ def messages_post(user_id):
     content = request.form['content']
     user_id = int(user_id)
     create_message(title, content, user_id)
+    mqtt_publish.publish(user_id, current_user.email)
     return redirect(url_for('bp_user.messages_get_sent'))
 
 
