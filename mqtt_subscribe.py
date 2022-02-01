@@ -9,7 +9,6 @@ BROKER = '104.248.47.103'
 PORT = 1883
 
 
-
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
         print('Connected to MQTT Broker')
@@ -40,7 +39,10 @@ def subscribe(client):
 def main():
     client = connect_mqtt()
     subscribe(client)
-    client.loop_forever()
+    try:
+        client.loop_forever()
+    except KeyboardInterrupt:
+        client.disconnect()
 
 
 if __name__ == '__main__':
