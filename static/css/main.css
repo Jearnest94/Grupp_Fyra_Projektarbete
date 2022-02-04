@@ -1,3 +1,5 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+
 body {
     cursor: url("/static/assets/mangocursor_hel_32.png") ,auto;
     background-color: lemonchiffon;
@@ -136,4 +138,21 @@ body {
 
 .offline {
     background: crimson;
+}
+
+th{
+    background: orange;
+}
+
+table{
+    width: 75%;
+    background-color:antiquewhite;
+}
+tr:nth-child(odd){
+    background: darkgrey;
+}
+
+tr:nth-child(even){
+    background: grey;
+    color: white;
 }
