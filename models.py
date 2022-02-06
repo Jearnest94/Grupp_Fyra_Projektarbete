@@ -17,6 +17,7 @@ class User(UserMixin, db.Model):
     mangocount = db.Column(db.Integer, default=0)
     admin = db.Column(db.BOOLEAN, default=False)
     online = db.Column(db.BOOLEAN, default=False)
+    public_RSA = db.Column(db.String(512))
     last_message_read_time = db.Column(db.DateTime)
     sent_messages = db.relationship('Message', backref='sender', lazy=True)
     recv_messages = db.relationship('Message', secondary=message_recv, lazy='subquery',

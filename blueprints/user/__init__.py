@@ -56,6 +56,15 @@ def profile_get():
                            mangocount=User.query.filter_by(email=current_user.email).first().mangocount, messages_data=messages_data)
 
 
+@bp_user.post('/profile')
+def profile_post():
+    email = session['email']
+    user = User.query.filter_by(email=email).first()
+    user.public_RSA = request.form['generated_RSA_public']
+    db.session.commit()
+    return redirect(url_for('bp_user.profile_get'))
+
+
 @bp_user.get('/profile/<user_id>')
 def profile_get_user(user_id):
     user_id = int(user_id)
