@@ -11,6 +11,10 @@
         <p>Username:<i> {{ recipent.email }}</i></p>
         <p>Mango Count: {{ recipent.mangocount }}</p>
         <br/>
+        <label class="label">Public RSA</label>
+        {{ recipent.public_RSA }}
+        <br/>
+        <br/>
         <button type="button" onclick="window.location.href='/messages/{{ recipent.id }}';">Send message</button>
         {% if recipent.online %}
         <button type="button" onclick="window.location.href='/chat';">Chat</button>
