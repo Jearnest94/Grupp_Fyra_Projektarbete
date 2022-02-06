@@ -12,6 +12,25 @@
         <h1 class="title">Mango Messaging</h1>
         <p>Message to: {{ recipient.email }}</p>
         <br/>
+        <br/>
+        <button onclick="generateKey()">Generate AES Key</button>
+        <input id="key" placeholder="AES key (enter text or generate)" />
+
+        <br/>
+        <input id="plain" placeholder="Message to Encrypt" />
+        <button onclick="encrypt()">Encrypt</button>
+        <br/>
+        <br/>
+
+
+
+        <p>Upload public key</p>
+        <input type="file" id="pub-file" enctype="multipart/form-data" />
+        <button onclick="readPublicKey()">Read Public Key</button><span id="pub-loaded"></span>
+
+        <button onclick="rsaEncrypt()">Encrypt AES-key</button>
+        <br/>
+        <br/>
         <form action="{{ url_for('bp_user.messages_post',user_id = recipient.id) }}" method="POST" class="box">
 
             <input type="hidden" name="user_id" value="{{ recipient.id }}">
@@ -26,7 +45,14 @@
             <div class="field">
                 <label class="label">Message</label>
                 <div class="control">
-                    <input name="content" class="input textarea" type="text" placeholder="">
+                    <input id="cipher" name="content" class="input textarea" type="text" placeholder="">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Encrypted AES key</label>
+                <div class="control">
+                <input id="encrypted_AES" name="encrypted_AES_key" class="input text" type="text" placeholder="">
                 </div>
             </div>
 
@@ -36,4 +62,65 @@
         <i>Signed in as {{ email }}</i>
 
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <script src="../static/js/rsa.js"></script>
+    <script>
+
+        let key;
+        let encrypted;
+        let encrypted_rsa;
+        let AES_key;
+        let publicKey;
+
+        function generateKey() {
+            key = CryptoJS.lib.WordArray.random(16).toString();
+            document.getElementById("key").value = key;
+        }
+
+        function encrypt() {
+            let message = document.getElementById("plain").value;
+            encrypted = CryptoJS.AES.encrypt(message, key);
+            document.getElementById("cipher").value = encrypted;
+        }
+
+        function readPublicKey() {
+            // Get the public file chooser files
+            let files = document.getElementById("pub-file").files;
+            // and exctract the first file, the one we want
+            let file = files[0];
+
+            // Create a file reader object
+            let reader = new FileReader();
+
+            // When the file is read, this function will be called
+            reader.onloadend = function (event) {
+                // Get the file contents
+                publicKey = event.target.result;
+                // Remove all new lines in the key
+                publicKey = publicKey.replace(/(\r\n|\n|\r)/gm, "");
+                // Notify the user that the file is read
+                document.getElementById("pub-loaded").innerHTML = "Public key loaded";
+            };
+
+            // Read the file
+            reader.readAsText(file);
+        }
+
+        function rsaEncrypt() {
+            // Get the message to encrypt
+            let AES_key = document.getElementById("key").value;
+            // Create a RSA object
+            let rsaEncrypt = new JSEncrypt();
+            // Set the public key we want to use for encryption
+            rsaEncrypt.setPublicKey(publicKey);
+            // Show the encrypted message on the page
+            document.getElementById("encrypted_AES").value = rsaEncrypt.encrypt(AES_key);
+        }
+
+
+
+
+
+    </script>
 {% endblock %}

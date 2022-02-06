@@ -5,10 +5,10 @@ from controllers.user_controller import get_user_by_id
 from models import Message, message_recv
 
 
-def create_message(title, content, recipient_id):
+def create_message(title, content, recipient_id, encrypted_AES_key):
     from models import Message
     user = current_user
-    message = Message(title=title, content=content, sender_id=user.id, has_been_read=False)
+    message = Message(title=title, content=content, sender_id=user.id, has_been_read=False, encrypted_AES_key=encrypted_AES_key)
     recipient_id = int(recipient_id)
     recipient = get_user_by_id(recipient_id)
     message.recipients.append(recipient)

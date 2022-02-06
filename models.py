@@ -40,6 +40,7 @@ class Message(db.Model):
     content = db.Column(db.String(250))
     timestamp = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     has_been_read = db.Column(db.BOOLEAN, default=False)
+    encrypted_AES_key = db.Column(db.String(512))
 
 
 admin.add_view(MyModelView(User, db.session))

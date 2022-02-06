@@ -85,8 +85,9 @@ def messages_get_user(user_id):
 def messages_post(user_id):
     title = request.form['title']
     content = request.form['content']
+    encrypted_AES_key = request.form['encrypted_AES_key']
     user_id = int(user_id)
-    create_message(title, content, user_id)
+    create_message(title, content, user_id, encrypted_AES_key)
     mqtt_publish.publish(user_id, current_user.email)
     return redirect(url_for('bp_user.messages_get_sent'))
 
