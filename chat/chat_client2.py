@@ -12,7 +12,7 @@ port = 9002
 user_name_client = 'Dan'
 server_user = ''
 root = Tk()
-
+root.geometry("500x500")
 
 def message_dialog():
     rsa = simpledialog.askstring("Input private RSA key", f'Hello {user_name_client}! Enter private RSA')
