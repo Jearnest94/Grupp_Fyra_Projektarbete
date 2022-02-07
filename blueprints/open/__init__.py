@@ -1,8 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, session
-from flask_login import login_user, current_user, login_required
-
+from flask_login import login_user
 from app import db
-from controllers.user_controller import get_all_users
 from models import User, Message, message_recv
 from werkzeug.security import generate_password_hash, check_password_hash
 

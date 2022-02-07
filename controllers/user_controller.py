@@ -10,3 +10,11 @@ def get_all_users():
 def get_user_by_id(user_id):
     from models import User
     return User.query.filter(User.id == user_id).first()
+
+def get_public_RSA(user_id):
+    from models import User
+    sender_user = User.query.get(user_id)
+    recipient_key = sender_user.public_RSA
+    print()
+    return recipient_key
+
