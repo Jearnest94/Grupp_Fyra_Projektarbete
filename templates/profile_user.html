@@ -17,7 +17,9 @@
         <br/>
         <button type="button" onclick="window.location.href='/messages/{{ recipent.id }}';">Send message</button>
         {% if recipent.online %}
-        <button type="button" onclick="window.location.href='/chat';">Chat</button>
+            <form action="{{ url_for('bp_user.chat2_get') }}">
+                <button type="submit">Chat</button>
+            </form>
         {% else %}
         <button type="button" disabled>Chat</button>
         {% endif %}

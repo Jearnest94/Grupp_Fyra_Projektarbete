@@ -42,7 +42,7 @@
         <form action="{{ url_for('bp_user.profile_post') }}" method="POST" class="box">
             <label class="label">Submit new Public RSA-key</label>
                 <div class="control">
-                    <input name="generated_RSA_public" class="input text" type="text" placeholder="">
+                    <textarea name="generated_RSA_public" rows="5" cols="55"></textarea>
                 </div>
             <br/>
             <button type="submit" class="button is-primary">Send</button>

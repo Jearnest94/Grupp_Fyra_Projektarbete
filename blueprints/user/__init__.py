@@ -1,3 +1,4 @@
+import re
 from datetime import datetime
 
 from flask import Blueprint, render_template, session, request, redirect, url_for
@@ -47,6 +48,11 @@ def chat_get():
     messages_data = db.session.query(Message.has_been_read, message_recv).join(Message).all()
     return render_template('chat.html', name=current_user.name, userlist=users, messages_data=messages_data)
 
+@bp_user.get('/chat2')
+def chat2_get():
+
+    return render_template('chat2.html', name=current_user.name)
+
 
 @bp_user.get('/profile')
 def profile_get():
@@ -61,7 +67,10 @@ def profile_post():
     email = session['email']
     user = User.query.filter_by(email=email).first()
     user.public_RSA = request.form['generated_RSA_public']
+    public_key = re.sub("\n", "", user.public_RSA)
     db.session.commit()
+    with open(f'./chat/rsa_keys/{current_user.name.lower()}_public.pem', 'w') as out_file:
+        out_file.write(public_key)
     return redirect(url_for('bp_user.profile_get'))
 
 

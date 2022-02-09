@@ -9,7 +9,7 @@ from aes import send_message, receive_message
 client_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 LOCALHOST = '127.0.0.1'
 port = 9002
-user_name_client = 'Dan'
+user_name_client = 'Bob'
 server_user = ''
 root = Tk()
 root.geometry("500x500")
@@ -40,7 +40,9 @@ def main():
     print("New client created:")
     global server_user
     server_user = input('Enter name for other chat user: ').lower()
+    root.withdraw()
     Button(root, text="RSA", command=message_dialog()).pack
+    root.destroy()
     root.mainloop()
     thread_send = threading.Thread(target=thread_sending)
     thread_receive = threading.Thread(target=thread_receiving)
