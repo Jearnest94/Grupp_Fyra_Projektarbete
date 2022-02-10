@@ -1,9 +1,6 @@
 import re
-from datetime import datetime
-
 from flask import Blueprint, render_template, session, request, redirect, url_for
 from flask_login import current_user, login_required, logout_user
-
 import mqtt_publish
 from app import db
 from controllers.message_controller import get_user_messages, create_message, mark_as_read
@@ -48,11 +45,6 @@ def chat_get():
     messages_data = db.session.query(Message.has_been_read, message_recv).join(Message).all()
     return render_template('chat.html', name=current_user.name, userlist=users, messages_data=messages_data)
 
-@bp_user.get('/chat2')
-def chat2_get():
-
-    return render_template('chat2.html', name=current_user.name)
-
 
 @bp_user.get('/profile')
 def profile_get():
@@ -60,10 +52,7 @@ def profile_get():
     messages_data = db.session.query(Message.has_been_read, message_recv).join(Message).all()
     return render_template("profile.html", userlist=users, name=current_user.name, email=current_user.email,
                            mangocount=User.query.filter_by(email=current_user.email).first().mangocount, messages_data=messages_data)
-@bp_user.post('/collect')
-def collect():
-    userInput = request.form.get("userInput")
-    return render_template('chat.html', userInput=userInput)
+
 
 @bp_user.post('/profile')
 def profile_post():
