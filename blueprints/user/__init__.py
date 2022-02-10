@@ -60,7 +60,10 @@ def profile_get():
     messages_data = db.session.query(Message.has_been_read, message_recv).join(Message).all()
     return render_template("profile.html", userlist=users, name=current_user.name, email=current_user.email,
                            mangocount=User.query.filter_by(email=current_user.email).first().mangocount, messages_data=messages_data)
-
+@bp_user.post('/collect')
+def collect():
+    userInput = request.form.get("userInput")
+    return render_template('chat.html', userInput=userInput)
 
 @bp_user.post('/profile')
 def profile_post():
