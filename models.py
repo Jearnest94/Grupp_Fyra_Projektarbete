@@ -43,5 +43,13 @@ class Message(db.Model):
     encrypted_AES_key = db.Column(db.String(512))
 
 
+class Chat(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name_server = db.Column(db.String(150))
+    name_client = db.Column(db.String(150))
+    ip_server = db.Column(db.String(100))
+    notified = db.Column(db.BOOLEAN, default=False)
+
+
 admin.add_view(MyModelView(User, db.session))
 admin.add_view(MyModelView(Message, db.session))

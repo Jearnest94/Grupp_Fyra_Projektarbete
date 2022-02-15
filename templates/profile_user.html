@@ -1,27 +1,25 @@
 {% extends "base-template.html" %}
 
 {% block title %}
-    Mango Profile - {{ recipent.name }}
+    Mango Profile - {{ recipient.name }}
 {% endblock %}
 
 {% block content %}
 
 
     <div class="column is-4 is-offset-4">
-        <h1 class="title">User Profile for {{ recipent.name }}</h1>
-        <p>Name: {{ recipent.name }}</p>
-        <p>Username:<i> {{ recipent.email }}</i></p>
-        <p>Mango Count: {{ recipent.mangocount }}</p>
+        <h1 class="title">User Profile for {{ recipient.name }}</h1>
+        <p>Name: {{ recipient.name }}</p>
+        <p>Username:<i> {{ recipient.email }}</i></p>
+        <p>Mango Count: {{ recipient.mangocount }}</p>
         <br/>
         <label class="label">Public RSA</label>
-        <p>{{ recipent.public_RSA }}</p>
+        <p>{{ recipient.public_RSA }}</p>
         <br/>
         <br/>
-        <button type="button" onclick="window.location.href='/messages/{{ recipent.id }}';">Send message</button>
-        {% if recipent.online %}
-            <form action="{{ url_for('bp_user.chat_get') }}">
-                <button type="submit">Chat</button>
-            </form>
+        <button type="button" onclick="window.location.href='/messages/{{ recipient.id }}';">Send message</button>
+        {% if recipient.online %}
+            <button type="button" onclick="window.location.href='/chat/{{ recipient.id }}';">Chat</button>
         {% else %}
         <button type="button" disabled>Chat</button>
         {% endif %}

@@ -1,0 +1,24 @@
+{% extends "base-template.html" %}
+
+{% block title %}
+    Mango Chat
+{% endblock %}
+
+{% block content %}
+    <div class="column is-4 is-offset-4">
+        <p>Ready to connect!</p>
+        {% for chat in chat_data %}
+            <tr>
+                {% if chat.name_client == current_user.name %}
+                    {% if not chat.notified %}
+                        <p>Server IP: {{ chat.ip_server }}</p>
+                        <p>Server Name: {{ chat.name_server }}</p>
+                        <p>Client Name: {{ chat.name_client }}</p>
+                    {% endif %}
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
