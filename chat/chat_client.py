@@ -46,7 +46,7 @@ def thread_receiving():
 def main():
     global server_user, LOCALHOST, user_name_client
     chat_input = input('Enter data: ').lower()
-    LOCALHOST, user_name_client, server_user = chat_input.split(" ")
+    LOCALHOST, server_user, user_name_client = chat_input.split(" ")
     message_dialog()
     client_socket.connect((LOCALHOST, port))
     print("Chat connected:")
