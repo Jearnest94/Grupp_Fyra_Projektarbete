@@ -124,7 +124,10 @@ body {
     align-items: center;
     align-content: center;
 }
-
+.chat_text {
+    font-size: large;
+    color: #04AA6D;
+}
 .circle {
     width: 16px;
     height: 16px;

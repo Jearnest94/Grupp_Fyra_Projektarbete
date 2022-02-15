@@ -61,8 +61,11 @@ def profile_get_user(user_id):
     user_id = int(user_id)
     recipient = get_user_by_id(user_id)
     chat_data = db.session.query(Chat).all()
+    name_client = get_user_by_id(user_id)
+    ip_server = get_user_server_ip()
     messages_data = db.session.query(Message.has_been_read, message_recv).join(Message).all()
-    return render_template('profile_user.html', recipient=recipient, messages_data=messages_data, chat_data=chat_data)
+    return render_template('profile_user.html', recipient=recipient, messages_data=messages_data, name_client=name_client,
+                           ip_server=ip_server, chat_data=chat_data)
 
 
 @bp_user.get('/inbox')
@@ -75,22 +78,15 @@ def inbox_get():
                            chat_data=chat_data)
 
 
-@bp_user.get('/chat/<user_id>')
-def chat_get(user_id):
-    user_id = int(user_id)
-    name_client = get_user_by_id(user_id)
-    ip_server = get_user_server_ip()
-    chat_data = db.session.query(Chat).all()
-    messages_data = db.session.query(Message.has_been_read, message_recv).join(Message).all()
-    return render_template('chat.html', name=current_user.name, messages_data=messages_data, name_client=name_client,
-                           ip_server=ip_server, chat_data=chat_data)
-
-
 @bp_user.get('/chat_requests')
 def chat_requests_get():
-    notify = print_notification()
     chat_data = db.session.query(Chat).all()
-    return render_template('chat_requests.html', chat_data=chat_data, notify=notify)
+    return render_template('chat_requests.html', chat_data=chat_data)
+
+@bp_user.get('/chat_confirm')
+def chat_confirm():
+    mark_as_notified()
+    return redirect(url_for('bp_open.index'))
 
 
 @bp_user.post('/chat/<user_id>')
@@ -100,11 +96,7 @@ def chat_post(user_id):
     name_server = current_user.name
     ip_server = get_user_server_ip()
     create_chat(name_server, name_client.name, ip_server)
-    chat_data = db.session.query(Chat).all()
-    messages_data = db.session.query(Message.has_been_read, message_recv).join(Message).all()
-    return render_template('chat.html', name_server=name_server, messages_data=messages_data,
-                           name_client=name_client.name,
-                           chat_data=chat_data, ip_server=ip_server)
+    return redirect(url_for('bp_open.index'))
 
 
 @bp_user.get('/messages/<user_id>')

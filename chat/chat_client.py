@@ -7,17 +7,25 @@ from aes import send_message, receive_message
 
 
 client_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-LOCALHOST = '127.0.0.1'
+LOCALHOST = ''
 port = 9002
 user_name_client = 'Bob'
 server_user = ''
 root = Tk()
 root.geometry("500x500")
 
-def message_dialog():
+
+def message_dialog_input():
     rsa = simpledialog.askstring("Input private RSA key", f'Hello {user_name_client}! Enter private RSA')
     with open(f'./rsa_keys/{user_name_client.lower()}_private.pem', 'w') as out_file:
         out_file.write(rsa)
+
+
+def message_dialog():
+    root.withdraw()
+    Button(root, text="RSA", command=message_dialog_input()).pack
+    root.destroy()
+    root.mainloop()
 
 
 def thread_sending():
@@ -36,19 +44,17 @@ def thread_receiving():
 
 
 def main():
+    global server_user, LOCALHOST, user_name_client
+    chat_input = input('Enter data: ').lower()
+    LOCALHOST, user_name_client, server_user = chat_input.split(" ")
+    message_dialog()
     client_socket.connect((LOCALHOST, port))
-    print("New client created:")
-    global server_user
-    server_user = input('Enter name for other chat user: ').lower()
-    root.withdraw()
-    Button(root, text="RSA", command=message_dialog()).pack
-    root.destroy()
-    root.mainloop()
+    print("Chat connected:")
     thread_send = threading.Thread(target=thread_sending)
     thread_receive = threading.Thread(target=thread_receiving)
     thread_send.start()
     thread_receive.start()
 
+
 if __name__ == '__main__':
     main()
-
