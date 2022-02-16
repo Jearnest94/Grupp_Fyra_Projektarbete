@@ -32,18 +32,18 @@
         <p>User id: {{ current_user.id }}</p>
         <p>Mango Count: {{ mangocount }}</p>
         <br/>
-                <p>Generate your RSA-keys <a href="https://travistidwell.com/jsencrypt/demo/" target="_blank">HERE</a></p>
+        <p>Generate your RSA-keys <a href="https://travistidwell.com/jsencrypt/demo/" target="_blank">HERE</a></p>
         <br/>
         <label class="label">Public RSA</label>
         {{ current_user.public_RSA }}
         <br/>
         <br/>
-
         <form action="{{ url_for('bp_user.profile_post') }}" method="POST" class="box">
+
             <label class="label">Submit new Public RSA-key</label>
-                <div class="control">
-                    <textarea name="generated_RSA_public" rows="5" cols="55"></textarea>
-                </div>
+            <div class="control">
+                <textarea name="generated_RSA_public" rows="5" cols="55"></textarea>
+            </div>
             <br/>
             <button type="submit" class="button is-primary">Send</button>
         </form>

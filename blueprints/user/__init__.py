@@ -3,7 +3,8 @@ from flask import Blueprint, render_template, session, request, redirect, url_fo
 from flask_login import current_user, login_required, logout_user
 import mqtt_publish
 from app import db
-from controllers.message_controller import get_user_messages, create_message, mark_as_read, print_notification, create_chat, \
+from controllers.message_controller import get_user_messages, create_message, mark_as_read, print_notification, \
+    create_chat, \
     mark_as_notified
 from controllers.user_controller import get_all_users, get_user_by_id, get_user_server_ip
 from models import User, Message, message_recv, Chat
@@ -64,7 +65,8 @@ def profile_get_user(user_id):
     name_client = get_user_by_id(user_id)
     ip_server = get_user_server_ip()
     messages_data = db.session.query(Message.has_been_read, message_recv).join(Message).all()
-    return render_template('profile_user.html', recipient=recipient, messages_data=messages_data, name_client=name_client,
+    return render_template('profile_user.html', recipient=recipient, messages_data=messages_data,
+                           name_client=name_client,
                            ip_server=ip_server, chat_data=chat_data)
 
 
@@ -82,6 +84,7 @@ def inbox_get():
 def chat_requests_get():
     chat_data = db.session.query(Chat).all()
     return render_template('chat_requests.html', chat_data=chat_data)
+
 
 @bp_user.get('/chat_confirm')
 def chat_confirm():
