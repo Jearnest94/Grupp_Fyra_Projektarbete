@@ -143,19 +143,6 @@ body {
     background: crimson;
 }
 
-th{
-    background: orange;
-}
 
-table{
-    width: 75%;
-    background-color:antiquewhite;
-}
-tr:nth-child(odd){
-    background: darkgrey;
-}
 
-tr:nth-child(even){
-    background: grey;
-    color: white;
-}
+
