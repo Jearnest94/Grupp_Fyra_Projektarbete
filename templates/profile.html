@@ -5,7 +5,10 @@
 {% endblock %}
 
 {% block content %}
-    <table class="users">
+
+    <div class="column is-4 is-offset-4">
+    <h1 class="title">Users</h1>
+        <table class="users">
         <tr>
             <th>User Name</th>
             <th>User email</th>
@@ -24,10 +27,9 @@
                 </td>
             </tr>
         {% endfor %}
-
     </table>
-    <div class="column is-4 is-offset-4">
-        <h1 class="title">User Profile</h1>
+    <br/>
+        <h1 class="title">Your Profile</h1>
         <p>Name: {{ current_user.name }}</p>
         <p>User id: {{ current_user.id }}</p>
         <p>Mango Count: {{ mangocount }}</p>
