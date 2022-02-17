@@ -4,8 +4,6 @@
     Mango Main
 {% endblock %}
 
-
-
 {% block content %}
     <div class="column is-4 is-offset-4">
         <h1 class="title">Welcome to the Mango Project!</h1>
@@ -40,4 +38,10 @@
             <p>Mango Count: {{ current_user.mangocount }} </p>
         {% endif %}
     </div>
+    <script>
+    window.setInterval('refresh()', 10000);
+    function refresh() {
+        window .location.reload();
+    }
+</script>
 {% endblock %}
