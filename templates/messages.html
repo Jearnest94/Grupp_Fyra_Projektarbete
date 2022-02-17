@@ -26,47 +26,35 @@
                     <button class="button is-primary" onclick="rsaEncrypt()">Encrypt & insert AES-key</button>
                     <button class="button is-primary" onclick="encrypt()">Encrypt message</button>
                     <i>Using {{ recipient.name }}s public RSA-key</i>
-
-
-
                 </div>
             </div>
         </div>
         <br/>
-
         <br/>
         <form action="{{ url_for('bp_user.messages_post',user_id = recipient.id) }}" method="POST" class="box">
-
             <input type="hidden" name="user_id" value="{{ recipient.id }}">
             <input type="hidden" name="public_RSA" id="public_RSA" value="{{ recipient.public_RSA }}">
-
             <div class="field">
                 <label class="label">Title</label>
                 <div class="control">
                     <input name="title" class="input" type="text" placeholder="Message Title">
                 </div>
             </div>
-
             <div class="field">
                 <label class="label">Encrypted message</label>
                 <div class="control">
                     <input id="cipher" name="content" class="input textarea" type="text" placeholder="">
                 </div>
             </div>
-
             <div class="field">
                 <label class="label">Encrypted AES-key</label>
-
                 <div class="control">
                     <input id="encrypted_AES" name="encrypted_AES_key" class="input text" type="text" placeholder="">
                 </div>
             </div>
-
-
             <button type="submit" class="button is-primary">Send</button>
         </form>
         <i>Signed in as {{ email }}</i>
-
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
