@@ -1,0 +1,40 @@
+{% extends "base-template.html" %}
+
+{% block title %}
+    Mango Chat
+{% endblock %}
+
+{% block content %}
+
+    <div class="column is-4 is-offset-4">
+        <p>Ready to connect!</p>
+        <br>
+
+        {% for chat in chat_data %}
+            <tr>
+                {% if chat.name_client == current_user.name %}
+                    {% if not chat.notified %}
+                        <script>
+                            function confirmAction() {
+                            let confirmAction = confirm("{{ chat.name_server }} wants to chat with you");
+                            if (confirmAction) {
+                                alert("Copy string and start chat client: " +
+                                "{{ chat.ip_server }} {{ chat.name_server }} {{ chat.name_client }}");
+                                } else {
+                                alert("Action canceled. No chat for you!");
+                            }
+                        }
+                        </script>
+                            {% if current_user.public_RSA == none %}
+                                <p class="chat_text" onclick="alert('No public RSA key found. Press ok for redirection'); window.location.href = '{{ url_for('bp_user.profile_get') }}'">{{ chat.name_server }} wants to chat with you. Click text to confirm</p>
+                            {% else %}
+                                <p class="chat_text" onclick="confirmAction(); window.location.href = '{{ url_for('bp_user.chat_confirm') }}'">{{ chat.name_server }} wants to chat with you. Click text to confirm</p>
+                            {% endif %}
+                    {% endif %}
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+

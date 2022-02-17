@@ -1,23 +1,148 @@
-        body {
-            background-color: lemonchiffon;
-        }
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
 
-        .menu-item {
-            margin: 5px;
-            color: dodgerblue;
-        }
+body {
+    cursor: url("/static/assets/mangocursor_hel_32.png") ,auto;
+    background-color: lemonchiffon;
+    min-height: 100vh;
+}
 
-        .list-thumbnail {
-            margin-top: 10px;
-            margin-left: 10px;
-            height: 160px;
-            width: 160px;
-        }
+.menu-item {
+    margin: 5px;
+    color: dodgerblue;
+}
 
-        .button-submit {
-            margin-bottom: 10px;
-        }
+.list-thumbnail {
+    margin-top: 10px;
+    margin-left: 10px;
+    height: 160px;
+    width: 160px;
+}
 
-        .text-box {
-            margin-bottom: 10px;
-        }
+.button-submit {
+    margin-bottom: 10px;
+}
+
+.text-box {
+    margin-bottom: 10px;
+}
+
+.mango-spin:hover {
+    cursor: url("/static/assets/mangocursor_skalad_32.png") ,auto;
+    transform: rotate(360deg);
+    transition: all 0.3s ease-in-out 0s;
+}
+
+.hide-mango-button {
+    background: transparent;
+    border: none;
+}
+
+.mango-wrapper {
+    display: flex;
+}
+/* Button used to open the chat form - fixed at the bottom of the page */
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+/* The popup chat - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 550px;
+  padding: 10px;
+  margin: auto;
+    background-color: white;
+}
+
+/* Full-width textarea */
+.form-container textarea {
+  width: 100%;
+  padding: 15px;
+  margin: auto;
+  border: none;
+  background: #f1f1f1;
+  resize: none;
+  min-height: 340px;
+}
+
+/* When the textarea gets focus, do something */
+.form-container textarea:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
+.users {
+    width: 75%;
+
+}
+.center-content {
+    text-align: center;
+}
+
+.center-content {
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+.chat_text {
+    font-size: large;
+    color: #04AA6D;
+}
+.circle {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: aqua;
+}
+
+.online {
+    background: chartreuse;
+}
+
+.offline {
+    background: crimson;
+}
+
+
+
+

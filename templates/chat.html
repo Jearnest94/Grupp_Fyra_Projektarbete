@@ -1,0 +1,20 @@
+{% extends "base-template.html" %}
+
+{% block title %}
+    Mango Chat
+{% endblock %}
+
+{% block content %}
+    <div class="column is-4 is-offset-4">
+        <form action="{{ url_for('bp_user.chat_post',user_id = name_client.id) }}" method="POST" class="box">
+
+            <input type="hidden" name="user_id" value="{{ name_client.id }}">
+            <p>{{ current_user.name }}</p>
+            <p>{{ name_client.name }}</p>
+            <p>{{ ip_server }}</p>
+
+            <button type="submit" class="button is-primary">Send chat request</button>
+        </form>
+    </div>
+
+{% endblock %}
