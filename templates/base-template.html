@@ -23,7 +23,7 @@
                             <a href="http://127.0.0.1:5000/admin" target="_blank" class="navbar-item">Admin</a>
                         {% endif %}
                         {% if current_user.is_authenticated %}
-                            <a href="{{ url_for('bp_user.index') }}" class="navbar-item">Home</a>
+                            <a href="{{ url_for('bp_open.index') }}" class="navbar-item">Home</a>
                             <a href="{{ url_for('bp_user.inbox_get') }}" class="navbar-item">
                                 <span class="icon-text">
                                     {% for message in messages_data %}
@@ -44,7 +44,7 @@
                                 {% for chat in chat_data %}
                                     {% if chat.name_client == current_user.name %}
                                         {% if chat.notified == 0 %}
-                                            <a href=" {{ url_for('bp_user.chat_requests_get') }}">Chat Request</a>
+                                            <a href=" {{ url_for('bp_user.chat_requests_get') }}" style="color:#FF0000";>Chat Request</a>
                                         {% endif %}
                                     {% endif %}
                                 {% endfor %}

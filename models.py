@@ -53,3 +53,4 @@ class Chat(db.Model):
 
 admin.add_view(MyModelView(User, db.session))
 admin.add_view(MyModelView(Message, db.session))
+admin.add_view(MyModelView(Chat, db.session))

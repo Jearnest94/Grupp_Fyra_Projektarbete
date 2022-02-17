@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, session
 from flask_login import login_user
 from app import db
-from models import User, Message, message_recv
+from models import User, Message, message_recv, Chat
 from werkzeug.security import generate_password_hash, check_password_hash
 
 bp_open = Blueprint('bp_open', __name__)
@@ -9,8 +9,9 @@ bp_open = Blueprint('bp_open', __name__)
 
 @bp_open.get('/')
 def index():
+    chat_data = db.session.query(Chat).all()
     messages_data = db.session.query(Message.has_been_read, message_recv).join(Message).all()
-    return render_template("index.html", messages_data=messages_data)
+    return render_template("index.html", messages_data=messages_data, chat_data=chat_data)
 
 
 @bp_open.get('/login')

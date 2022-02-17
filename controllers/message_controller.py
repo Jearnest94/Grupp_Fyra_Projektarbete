@@ -1,5 +1,4 @@
 from flask_login import current_user
-import time
 from app import db
 from controllers.user_controller import get_user_by_id
 from models import Message, message_recv, Chat
@@ -40,18 +39,6 @@ def mark_as_read():
         message = Message.query.filter_by(message_id=message_id).first()
         message.has_been_read = 1
         db.session.commit()
-
-
-def print_notification():
-    chat_data = db.session.query(Chat).all()
-    notification_info = []
-    for chat in chat_data:
-        if current_user.name == chat.name_client:
-            if chat.notified == 0:
-                notification_info.append(chat.name_client)
-                notification_info.append(chat.name_server)
-                notification_info.append(chat.ip_server)
-    return notification_info
 
 
 def mark_as_notified():

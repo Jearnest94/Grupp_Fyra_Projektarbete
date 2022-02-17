@@ -3,24 +3,12 @@ from flask import Blueprint, render_template, session, request, redirect, url_fo
 from flask_login import current_user, login_required, logout_user
 import mqtt_publish
 from app import db
-from controllers.message_controller import get_user_messages, create_message, mark_as_read, print_notification, \
-    create_chat, \
-    mark_as_notified
+from controllers.message_controller import get_user_messages, create_message, mark_as_read, \
+    create_chat, mark_as_notified
 from controllers.user_controller import get_all_users, get_user_by_id, get_user_server_ip
 from models import User, Message, message_recv, Chat
 
 bp_user = Blueprint('bp_user', __name__)
-
-
-@bp_user.get('/')
-def index():
-    users = get_all_users()
-    messages = get_user_messages()
-    chat_data = db.session.query(Chat).all()
-    messages_data = db.session.query(Message.has_been_read, message_recv).join(Message).all()
-    return render_template("index.html", name=current_user.name, userlist=users,
-                           mangocount=User.query.filter_by(email=current_user.email).first().mangocount,
-                           messages=messages, messages_data=messages_data, chat_data=chat_data)
 
 
 @bp_user.post('/')
@@ -106,10 +94,9 @@ def chat_post(user_id):
 def messages_get_user(user_id):
     user_id = int(user_id)
     recipient = get_user_by_id(user_id)
-    chat_data = db.session.query(Chat).all()
     messages_data = db.session.query(Message.has_been_read, message_recv).join(Message).all()
     return render_template('messages.html', name=current_user.name, email=current_user.email, recipient=recipient,
-                           messages_data=messages_data, chat_data=chat_data)
+                           messages_data=messages_data)
 
 
 @bp_user.post('/messages/<user_id>')
